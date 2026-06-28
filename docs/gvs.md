@@ -24,4 +24,4 @@ The brain uses information from the vestibular system in the head (sensorial sig
 
 These signals are sent to the neural structures responsible for postural control, coordinating the body's position and movement within its environment.
 
-Troubles of the vestibular system can lead to **dizziness**: our device exploits this by applying **a controlled DC current to the mastoid process**, artificially triggering the vestibular nerve and **inducing balance and orientation sensations**.
+Troubles of the vestibular system can lead to **dizziness**: this device exploits this by applying **a controlled DC current to the mastoid process**, artificially triggering the vestibular nerve and **inducing balance and orientation sensations**.
