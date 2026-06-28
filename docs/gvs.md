@@ -30,9 +30,9 @@ Troubles of the vestibular system can lead to **dizziness**: this device exploit
 
 GVS has been investigated across three main domains:
 
-**Biomedical & rehabilitation**: Used to probe vestibular function in clinical research, and more recently to help patients relearn balance after injury or neurological conditions by tapping into the brain's sense of orientation (University of Chicago, 2025).
+**Biomedical & rehabilitation**: Used to probe vestibular function in clinical research, and more recently to help patients relearn balance after injury or neurological conditions by tapping into the brain's sense of orientation ([University of Chicago, 2025](https://cs.uchicago.edu/news/redirecting-hands-in-virtual-reality-with-galvanic-vestibular-stimulation-uchicago-lab-to-present-first-of-its-kind-work-at-uist-2025/)). [[archive](https://web.archive.org/web/20260628193641/https://cs.uchicago.edu/news/redirecting-hands-in-virtual-reality-with-galvanic-vestibular-stimulation-uchicago-lab-to-present-first-of-its-kind-work-at-uist-2025/)]
 
-**Pilot training**: Spatial disorientation (SD) remains the leading cause of Class A mishaps in the U.S. Navy. Since static flight simulators provide no vestibular stimulation, GVS has been proposed as a low-cost solution to replicate vestibular illusions (graveyard spin, Coriolis...) in a grounded simulator, allowing pilots to safely experience and learn to recover from disorienting events (Allred et al., 2024).
+**Pilot training**: Spatial disorientation (SD) remains the leading cause of Class A mishaps in the U.S. Navy. Since static flight simulators provide no vestibular stimulation, GVS has been proposed as a low-cost solution to replicate vestibular illusions (graveyard spin, Coriolis...) in a grounded simulator, allowing pilots to safely experience and learn to recover from disorienting events ([Allred et al., 2024](https://asma.kglmeridian.com/view/journals/amhp/95/7/article-p390.xml)). [[archive](https://web.archive.org/web/20260628193340/https://asma.kglmeridian.com/view/journals/amhp/95/7/article-p390.xml)]
 
 **Entertainment & VR**: Synchronized with visual stimuli, GVS enhances immersion by making users physically feel motion in virtual environments. Video games, film, and VR headsets are some interesting integration vectors.
 
