@@ -37,3 +37,26 @@ GVS has been investigated across three main domains:
 **Entertainment & VR**: Synchronized with visual stimuli, GVS enhances immersion by making users physically feel motion in virtual environments. Video games, film, and VR headsets are some interesting integration vectors.
 
 *This project falls into the third category; with a joystick as input.*
+
+## Polarity Effects
+
+In the binaural bipolar configuration (one electrode behind each mastoid), reversing the current polarity reverses the perceived direction of tilt.
+
+| Polarity | Cathode side | Anode side | Perceived effect |
+|----------|-------------|------------|-----------------|
+| ➡ | Left | Right | Tilt to the left |
+| ⬅ | Right | Left | Tilt to the right |
+
+The cathode (negative) depolarizes the vestibular afferents on its side, while the anode (positive) hyperpolarizes those on the opposite side; mimicking the neural signal of an actual physical tilt.
+
+### Axes of Stimulation
+
+The binaural bipolar montage primarily induce a sensation of **roll**: a lateral tilt to the left or right, as if leaning toward one shoulder. This is the main useful effect for balance perturbation applications like this project. A small **yaw** component (a sensation of rotating on oneself) is also produced, as a side effect of the geometry of the semicircular canals in the skull, which are not perfectly aligned with the stimulation axis.
+
+<p align="center">
+  <img src="../assets/axis.png" width="400" />
+  <br><br>
+  <a><i><b>Figure: </b>Principal axis: Pitch, yaw, and roll</i></a>
+</p>
+
+Pitch sensations are **not achievable** with this two-electrode configuration: four-electrode montages are required to stimulate all three axes.
