@@ -30,11 +30,11 @@ Troubles of the vestibular system can lead to **dizziness**: this device exploit
 
 GVS has been investigated across three main domains:
 
-**Biomedical & rehabilitation**: Used to probe vestibular function in clinical research, and more recently to help patients relearn balance after injury or neurological conditions by tapping into the brain's sense of orientation ([University of Chicago, 2025](https://cs.uchicago.edu/news/redirecting-hands-in-virtual-reality-with-galvanic-vestibular-stimulation-uchicago-lab-to-present-first-of-its-kind-work-at-uist-2025/)). [[archive](https://web.archive.org/web/20260628193641/https://cs.uchicago.edu/news/redirecting-hands-in-virtual-reality-with-galvanic-vestibular-stimulation-uchicago-lab-to-present-first-of-its-kind-work-at-uist-2025/)]
+**Biomedical & rehabilitation**: Used to probe vestibular function in clinical research, and more recently to help patients relearn balance after injury or neurological conditions such as Parkinson's disease and stroke, by tapping into the brain's sense of orientation ([Mahmud et al., 2022](https://pubmed.ncbi.nlm.nih.gov/36116217/)). [[archive](https://web.archive.org/web/20260628224816/https://pubmed.ncbi.nlm.nih.gov/36116217/)]
 
 **Pilot training**: Spatial disorientation (SD) remains the leading cause of Class A mishaps in the U.S. Navy. Since static flight simulators provide no vestibular stimulation, GVS has been proposed as a low-cost solution to replicate vestibular illusions (graveyard spin, Coriolis...) in a grounded simulator, allowing pilots to safely experience and learn to recover from disorienting events ([Allred et al., 2024](https://asma.kglmeridian.com/view/journals/amhp/95/7/article-p390.xml)). [[archive](https://web.archive.org/web/20260628193340/https://asma.kglmeridian.com/view/journals/amhp/95/7/article-p390.xml)]
 
-**Entertainment & VR**: Synchronized with visual stimuli, GVS enhances immersion by making users physically feel motion in virtual environments. Video games, film, and VR headsets are some interesting integration vectors.
+**Entertainment & VR**: Synchronized with visual stimuli, GVS enhances immersion by making users physically feel motion in virtual environments. Video games, film, and VR headsets are some interesting integration vectors ([University of Chicago, 2025](https://cs.uchicago.edu/news/redirecting-hands-in-virtual-reality-with-galvanic-vestibular-stimulation-uchicago-lab-to-present-first-of-its-kind-work-at-uist-2025/)). [[archive](https://web.archive.org/web/20260628193641/https://cs.uchicago.edu/news/redirecting-hands-in-virtual-reality-with-galvanic-vestibular-stimulation-uchicago-lab-to-present-first-of-its-kind-work-at-uist-2025/)]
 
 *This project falls into the third category; with a joystick as input.*
 
@@ -51,7 +51,7 @@ The cathode (negative) depolarizes the vestibular afferents on its side, while t
 
 ### Axes of Stimulation
 
-The binaural bipolar montage primarily induce a sensation of **roll**: a lateral tilt to the left or right, as if leaning toward one shoulder. This is the main useful effect for balance perturbation applications like this project. A small **yaw** component (a sensation of rotating on oneself) is also produced, as a side effect of the geometry of the semicircular canals in the skull, which are not perfectly aligned with the stimulation axis.
+The binaural bipolar montage primarily induces a sensation of **roll**: a lateral tilt to the left or right, as if leaning toward one shoulder. This is the main useful effect for balance perturbation applications like this project. A small **yaw** component (a sensation of rotating on oneself) is also produced, as a side effect of the geometry of the semicircular canals in the skull, which are not perfectly aligned with the stimulation axis.
 
 <p align="center">
   <img src="../assets/axis.png" width="400" />
@@ -60,3 +60,22 @@ The binaural bipolar montage primarily induce a sensation of **roll**: a lateral
 </p>
 
 Pitch sensations are **not achievable** with this two-electrode configuration: four-electrode montages are required to stimulate all three axes.
+
+## Stimulation Parameters
+
+| Parameter | Typical range | This project |
+|-----------|--------------|--------------|
+| Current | 1 – 5 mA | ≤ 5 mA (hardware-limited) |
+| Waveform | DC / low-frequency | DC bias + 1.5 Hz sine |
+| Electrode size | 30 – 50 mm diameter | / |
+| Electrode placement | Mastoid processes | Mastoid processes |
+
+Current amplitude is the main control variable: higher current produces stronger tilt sensations. Below 1 mA, effects are generally subthreshold and imperceptible. Above 3.5 mA, motion sickness symptoms have been reported during prolonged exposure ([Allred et al., 2024](https://asma.kglmeridian.com/view/journals/amhp/95/7/article-p390.xml)). [[archive](https://web.archive.org/web/20260628193340/https://asma.kglmeridian.com/view/journals/amhp/95/7/article-p390.xml)]
+
+> [!WARNING]
+> While 5 mA is the absolute hardware limit, it may be too intense for
+> comfortable use. For the final build, I recommend capping the current
+> at **3 mA** to stay well below the threshold where motion sickness
+> symptoms have been reported in the literature.
+
+The input signal is the sum of two components: a low-frequency sine wave (300 mVp @ 1.5 Hz) generated by a Wien oscillator, and a DC bias (-2.5 V to +2.5 V) set by the joystick axis through a potentiometer. This combined signal drives the Howland current source (see [Circuit documentation](./circuit.md)).
