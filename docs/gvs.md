@@ -25,3 +25,15 @@ The brain uses information from the vestibular system in the head (sensorial sig
 These signals are sent to the neural structures responsible for postural control, coordinating the body's position and movement within its environment.
 
 Troubles of the vestibular system can lead to **dizziness**: this device exploits this by applying **a controlled DC current to the mastoid process**, artificially triggering the vestibular nerve and **inducing balance and orientation sensations**.
+
+## State of the Art
+
+GVS has been investigated across three main domains:
+
+**Biomedical & rehabilitation**: Used to probe vestibular function in clinical research, and more recently to help patients relearn balance after injury or neurological conditions by tapping into the brain's sense of orientation (University of Chicago, 2025).
+
+**Pilot training**: Spatial disorientation (SD) remains the leading cause of Class A mishaps in the U.S. Navy. Since static flight simulators provide no vestibular stimulation, GVS has been proposed as a low-cost solution to replicate vestibular illusions (graveyard spin, Coriolis...) in a grounded simulator, allowing pilots to safely experience and learn to recover from disorienting events (Allred et al., 2024).
+
+**Entertainment & VR**: Synchronized with visual stimuli, GVS enhances immersion by making users physically feel motion in virtual environments. Video games, film, and VR headsets are some interesting integration vectors.
+
+*This project falls into the third category; with a joystick as input.*
