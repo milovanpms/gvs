@@ -19,6 +19,18 @@ The ***G**énialissime **V**ecteur de **S**ensations (**GVS**)* is a **Galvanic 
 > 
 > **Build and use it at your own risk.**
 
+## 🧠 What is GVS?
+
+> #### Check out the [detailed documentation](./docs/gvs.md).
+
+**G**alvanic **V**estibular **S**timulation (**GVS**) is the process of sending electric messages (*in this project, a low-level DC current*) to a nerve in **the vestibular system**, located in the ear, that maintains balance. We "access" the vestibular system through **the mastoid process**, a conical projection forming a bony prominence behind and below the ear.
+
+### Vestibular system
+
+The vestibular system is a sensory organ, constitutive of the inner ear, that creates **the sense of balance and spatial orientation** for the function of coordinating movement with balance. This organ is present in most mammals.
+
+Troubles of the vestibular system can lead to **dizziness**: this device exploits this by applying **a controlled DC current to the mastoid process**, artificially triggering the vestibular nerve and **inducing balance and orientation sensations**.
+
 ## Documentation
 ### Find your happiness:
 - 🧠 [What is GVS?](./docs/gvs.md): Vestibular system, physiological effects and stimulation principles
