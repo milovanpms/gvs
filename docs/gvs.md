@@ -5,7 +5,7 @@
 **G**alvanic **V**estibular **S**timulation (**GVS**) is the process of sending electric messages (*in this project, a low-level DC current*) to a nerve in **the vestibular system**, located in the ear, that maintains balance. We "access" the vestibular system through **the mastoid process**, a conical projection forming a bony prominence behind and below the ear.
 
 <p align="center">
-  <img src="../assets/mastoids.png" width="300" />
+  <img src="../assets/mastoid.png" width="300" />
   <br><br>
   <a><i><b>Figure: </b>Mastoid process</i></a>
 </p>
