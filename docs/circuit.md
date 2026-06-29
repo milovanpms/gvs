@@ -71,7 +71,9 @@ The Wien oscillator generates a stable `300 mVp` sine wave at `1.5 Hz`, powered 
 > A Wien oscillator is an analog sine wave generator built around an op-amp
 > with a frequency-selective RC feedback network. It is one of the simplest circuits
 > capable of producing a clean, low-distortion sine wave at a precise frequency, set by
-> the RC components: `f = 1 / (2π × R × C)`
+> the RC components:
+> 
+> $$f = \frac{1}{2π \times R \times C}$$
 >
 > It was chosen here for its simplicity (very few components), its low frequency capability,
 > and the quality of its sine wave output, making it well suited for a `1.5 Hz` stimulation signal.
@@ -98,3 +100,50 @@ The joystick control signal and the Wien oscillator output are summed using an *
 The output of the adder feeds a unity-gain **inverter (gain = `-1k / 1k = -1`), which restores the correct polarity. A `1 kΩ` series resistor between the adder output and the inverter input isolates the two stages and prevents unwanted interaction between them.
 
 The inverter output is the final control signal entering the Howland current source: a bipolar voltage between `-2.5 V` and `+2.5 V`, combined with a `300 mVp` sine wave at `1.5 Hz`.
+
+## Howland Current Source
+
+> ### What is a Howland current source?
+> A Howland current source is an op-amp circuit that converts an input voltage into a
+> proportional output current, regardless of the load impedance. This property, called **transconductance**
+> (expressed in **siemens**, `S` or `A/V`),
+> is essential for GVS: the current through the electrodes must remain constant even as the skin impedance varies
+> between individuals and over time.
+>
+> The transconductance `G` and output current are given by:
+>
+> $$G = \frac{I_{out}}{V_{in}} = \frac{1}{R_{13}}$$
+>
+> $$I_{out} = \frac{V_{in}}{R_{13}}$$
+> 
+> This project uses the **improved Howland topology**, which offers better
+> output impedance and efficiency than the basic version.
+
+> ### Basic vs. Improved Howland topology
+> The **basic Howland** uses four equal resistors around the op-amp. It works well
+> for simple loads, but has two main limitations:
+> - **Limited output compliance**: The output node cannot swing close to the
+> supply rails, restricting the maximum voltage across the load.
+> * **Inefficiency**: For low-value gain resistors, the op-amp
+> must source large currents internally, leading to significant power loss.
+>
+> The **improved Howland** addresses these limitations by decoupling the gain
+> resistor `R13` from the balancing resistors. This allows using large values
+> for `R11`, `R12`, `R14`, `R15` (here `100 kΩ`), improving the output
+> impedance and CMRR, while `R13` alone sets the transconductance. The
+> balance condition becomes:
+>
+> $$\frac{R_{11}}{R_{12} + R_{13}} = \frac{R_{14}}{R_{15}}$$
+>
+> This topology can efficiently drive several milliamps into loads of several
+> hundred ohms, which matches the requirements of GVS electrode stimulation.
+
+The Howland current source relies on a precise resistor ratio to achieve infinite output impedance, meaning the output current is truly independant of the load. If the ratio is not satisfied, the output impedance becomes finite and the current varies with load impedance, degrading the quality of the output current as well as the stimulation. The balance condition is:
+
+$$\frac{R_{11}}{R_{12} + R_{13}} = \frac{R_{14}}{R_{15}}$$
+
+With `R11 = 110 kΩ`, `R12 = 100 kΩ`, `R13 = 10 kΩ`, `R14 = 100 kΩ`, `R15 = 100 kΩ`, the condition is satisfied (`110k / 110k = 100k / 100k = 1`).
+
+The transconductance gain is `1 / R13 = 1 / 10 kΩ = 0.1 mA/V`, meaning a `±2.5 V` input produces a `±0.25 mA` output current at DC, plus the contribution of the sine wave.
+
+The op-amp is powered at `±9 V`.
