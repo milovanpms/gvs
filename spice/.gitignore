@@ -1,0 +1,15 @@
+*.log
+*.raw
+*.fft
+*.log
+*.net
+*.plt
+*.docx
+
+Book1.xlsx
+
+Draft1.asc
+Draft2.asc
+howland.asc
+howland_v1.asc
+MCP6021_AAC1.asc
