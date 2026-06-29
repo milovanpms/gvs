@@ -83,3 +83,18 @@ The Wien oscillator generates a stable `300 mVp` sine wave at `1.5 Hz`, powered 
 > continuously activated, enhancing the perceived effect of the stimulation.
 
 The oscillator output is summed with the joystick control signal in the next stage. At `0 V` joystick input (center position), the sine wave alone produces a small symmetric oscillation around `0 mA`, resulting in no net stimulation. The DC bias set by the joystick shifts this oscillation toward positive or negative currents, inducing a directional tilt sensation.
+
+## Adder & Inverter
+
+The joystick control signal and the Wien oscillator output are summed using an **inverting adder** (op-amp powered at `±9 V`), with both input signals passing through a `10 kΩ` series resistor to the inverting node, and a `10 kΩ` feedback resistor, giving a gain of `-1` for each input.
+
+> ### Why an inverting adder?
+> An inverting adder is the standard op-amp summing topology: each input
+> signal is weighted by the ratio of the feedback resistor to its input
+> resistor. With equal resistors (`10 kΩ / 10 kΩ`), each signal is summed
+> with a gain of `-1`, meaning the output is the **inverted sum** of both
+> inputs.
+
+The output of the adder feeds a unity-gain **inverter (gain = `-1k / 1k = -1`), which restores the correct polarity. A `1 kΩ` series resistor between the adder output and the inverter input isolates the two stages and prevents unwanted interaction between them.
+
+The inverter output is the final control signal entering the Howland current source: a bipolar voltage between `-2.5 V` and `+2.5 V`, combined with a `300 mVp` sine wave at `1.5 Hz`.
