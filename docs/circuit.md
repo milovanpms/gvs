@@ -32,3 +32,12 @@ The circuit runs on a dual `±9 V` battery supply. Two additional stable referen
 
 > [!NOTE]
 > I know, the voltage divider is really crappy. I use it to get a reasonably clean `-5 V` signal, for **simulation purposes**, but this needs to be refined in prototyping.
+
+> ### Why is the MCP6021 powered at GND / -5.31 V here?
+> The `MCP6021` requires the signal it buffers to fall within its supply voltage range.
+> Here, the signal to buffer is `-2.5 V`, which is negative. If we
+> powered the op-amp with the usual `+5 V / GND`, its output could never reach
+> `-2.5 V` since `GND` would be its negative rail.
+>
+> By powering it at `+Vcc = GND` and `-Vcc = -5.31 V`, the op-amp can swing
+> between `GND` and `-5.31 V`, which includes `-2.5 V`.
