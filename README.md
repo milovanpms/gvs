@@ -51,6 +51,12 @@ The signal flows as follows:
 8. A **hardware current limiter** caps the output at `3-5 mA`
 9. Current flows through the **electrodes** placed on the mastoid processes
 
+## 🔒 Safety
+
+> #### Check out the [detailed documentation](./docs/safety.md).
+
+This device delivers a controlled electrical current directly to the human skull: **this is not a toy!** Hardware protections are in place (current limiter, emergency stop), but they are not a substitute for **testing**, **electrode placement**, and **common sense**.
+
 ## Documentation
 ### Find your happiness:
 - 🧠 [What is GVS?](./docs/gvs.md): Vestibular system, physiological effects and stimulation principles
