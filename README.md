@@ -31,6 +31,26 @@ The vestibular system is a sensory organ, constitutive of the inner ear, that cr
 
 Troubles of the vestibular system can lead to **dizziness**: this device exploits this by applying **a controlled DC current to the mastoid process**, artificially triggering the vestibular nerve and **inducing balance and orientation sensations**.
 
+## ⚙️ Circuit Design
+
+> #### Check out the [detailed documentation](./docs/circuit.md).
+
+The circuit is a **transconductance amplifier**: it converts an input voltage (the joystick position) into a controlled output current through the electrodes. The core of the circuit is an **improved Howland current source**, preceded by an input signal generation stage and followed by a push-pull output stage with hardware current limiting.
+
+### Signal flow
+
+The signal flows as follows:
+
+1. A **stable `±2.5 V` supply** is generated from the `±9 V` rails
+2. The **joystick position** sets a DC bias between `-2.5 V` and `+2.5 V` through a potentiometer
+3. A **fade-in/fade-out RC filter** smooths abrupt transitions
+4. A **Wien oscillator** generates a `300 mVp` sine wave at `1.5 Hz`
+5. Both signals are **summed and inverted** before entering the Howland stage
+6. The **Howland current source** converts the input voltage to a proportional current
+7. A **push-pull stage** boosts output compliance and current capability
+8. A **hardware current limiter** caps the output at `3-5 mA`
+9. Current flows through the **electrodes** placed on the mastoid processes
+
 ## Documentation
 ### Find your happiness:
 - 🧠 [What is GVS?](./docs/gvs.md): Vestibular system, physiological effects and stimulation principles
