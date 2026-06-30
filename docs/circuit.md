@@ -147,3 +147,80 @@ With `R11 = 110 kΩ`, `R12 = 100 kΩ`, `R13 = 10 kΩ`, `R14 = 100 kΩ`, `R15 = 1
 The transconductance gain is `1 / R13 = 1 / 10 kΩ = 0.1 mA/V`, meaning a `±2.5 V` input produces a `±0.25 mA` output current at DC, plus the contribution of the sine wave.
 
 The op-amp is powered at `±9 V`.
+
+## Push-Pull Stage
+
+> ### What is a push-pull stage?
+> A push-pull stage uses two complementary transistors (one NPN, one PNP) to drive a load in both directions. The
+> NPN transistor "pushes" current into the load on the positive half-cycle, while the PNP transistor "pulls" current
+> from the load on the negative half-cycle. Together, they cover the full bipolar signal without each transistor
+> needing to handle both polarities; which would be impossible for a single transistor type.
+>
+> They also provide a low output impedance, which
+> isolates the op-amp from the capacitive electrode-skin load and prevents oscillations.
+
+The TL082 of the Howland stage (powered at `±9 V`) cannot swing its output all the way to the rails: in practice, the output is limited to a range that constrains the maximum voltage across the load, and therefore the maximum drivable impedance at `5 mA`.
+
+The push-pull is built with two complementary transistors:
+
+- **2N2222** (NPN): Conducts on the positive half-cycle
+* **2N2907** (PNP): Conducts on the negative half-cycle
+
+Both bases are tied together and driven by `R_base = 1 kΩ` from the Howland output node. The emitters are connected together and form the output of the stage. The collectors are tied to `+9 V` (2N2222) and `-9 V` (2N2907).
+
+With complementary transistors, the push-pull stage addresses this output swing issue: configured as emitter followers with `Vbe ≈ 0.7 V`, it extends the output swing to:
+
+$$V_{out,max} = V_{cc} - V_{be} = 9\text{ V} - 0.7\text{ V} = 8.3\text{ V}$$
+
+This raises the maximum drivable load impedance to:
+
+$$R_{load,max} = \frac{8.3\text{ V}}{5\text{ mA}} = 1660\ \Omega$$
+
+> [!NOTE]
+> At low load impedances, the TL082 operates well within its output swing. However, as electrode-skin impedance
+> can reach `1.5 kΩ` to `2 kΩ` in practice, the push-pull stage extends the output compliance to prevent the op-amp
+> from saturating under real conditions.
+
+## Current Limiting & Protection
+
+> ### Why hardware current limiting?
+> Software or user-controlled limiting alone is not sufficient for a device that intefaces directly
+> with the human body. A hardware current limiter acts as a *ultimate last chance* safeguard: it physically
+> prevents the current from exceeding a safe threshold, regarless of any possible fault in the upstream circuit.
+
+### Sense Resistor
+
+The output current is monitored via a sense resistor `Rsense` placed in series between the push-pull output and the load. The voltage across `Rsense` is proportional to the current flowing through the electrodes:
+
+$$V_{sense} = I_{out} \times R_{sense}$$
+
+The maximum current is set by the transistor threshold voltage `Vbe ≈ 0.6 V`:
+
+$$I_{max} = \frac{V_{be}}{R_{sense}}$$
+
+#### Possible values
+
+| `Rsense` | `Imax` |
+|----------|--------|
+| `120 Ω` | `5 mA` |
+| `180 Ω` | `3.3 mA` |
+
+> [!WARNING]
+> A value of `Rsense = 180 Ω` is recommended for the final build, capping the
+> current at `~3.3 mA` to prevent brains to implode. (see [Safety documentation](./safety.md)).
+
+### Protection Transistors (BD139 / BD140)
+
+Two complementary transistors (`BD139` NPN and `BD140` PNP) have their bases tied together and connected to the output side of `Rsense`, and their emitters connected to the input side (push-pull stage output):
+
+- When `I_out` exceeds `Imax`, `Vbe` across `Rsense` forward-biases the
+  relevant transistor, which conducts and injects current into the Howland
+  op-amp inverting input via a `1N4148` diode, reducing the output.
+* The `BD139` handles the positive half-cycle, the `BD140` the negative.
+
+> ### Why 1N4148 diodes?
+> Without the diodes, the protection transistors would permanently influence the Howland op-amp even below `Imax`,
+> acting as a constant load on the inverting input and reducing the output current (observed: `~1 mA` instead
+> of `~3 mA` in simulation).
+> The diodes block this path below the activation threshold, making the protection circuit
+> invisible to the op-amp during normal operation. They only conduct when `Imax` is exceeded (see [Simulation documentation](./simulation.md)).
