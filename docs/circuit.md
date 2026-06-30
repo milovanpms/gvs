@@ -224,3 +224,35 @@ Two complementary transistors (`BD139` NPN and `BD140` PNP) have their bases tie
 > of `~3 mA` in simulation).
 > The diodes block this path below the activation threshold, making the protection circuit
 > invisible to the op-amp during normal operation. They only conduct when `Imax` is exceeded (see [Simulation documentation](./simulation.md)).
+
+## Output
+
+### Series Resistor
+
+A `1.2kΩ` series resistor (`Rserie`) is placed between `Rsense` and the electrode load.
+
+> [!WARNING]
+> At `Rserie = 1.2 kΩ`, the protection threshold rises to `~7.5 mA` (`Vbe / Rserie`), which is above
+> the safe limit. Additionally, this resistor causes a significant voltage drop at the operating current,
+> reducing the compliance available for the load.
+
+### DC Blocking Capacitor (future improvement)
+
+A capacitor placed in series with the electrodes would block any sustained DC current, regardless of upstream circuit faults.
+
+> ### How would it work?
+> A capacitor cannot sustain a constant DC current: it charges up to the applied voltage and the current
+> drops to zero. Only a time-varying signal, like the `1.5 Hz` sine wave used in this project, can continue
+> to flow through it. This makes it an effective passive safeguard: even if an internal fault (like a failed
+> op-amp or short circuit) forces a constant current toward the electrodes, the capacitor would block it after a brief transient; a valuable safety for any device like ours delivering current directly to a human skull.
+
+> [!NOTE]
+> This protection is **not yet implemented** in the current design and is considered a future improvement (In fact, it may really be nice to add it).
+
+### Emergency Stop
+
+A push-button switch placed in series between the input of the Howland stage and `GND` allows the user to instantly bring the control voltage to `0 V`, dropping the output current to `0 mA` without cutting the circuit power. This is preferable to cutting the supply, which could cause transient current spikes.
+
+### Electrode Load
+
+The final load `Rload = 1 kΩ` models the electrode-skin impedance in simulation. In practice, this impedance varies between individuals and depends on skin preparation (cleaning with alcohol, electrode gel application). Ag/AgCl self-adhesive electrodes are recommended to minimize contact impedance and reduce irritation.
